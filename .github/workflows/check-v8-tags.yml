@@ -26,6 +26,7 @@ jobs:
           - name: Clone V8
             run:  |
                 git clone --depth 1 --no-checkout https://chromium.googlesource.com/v8/v8.git
+                git fetch --tags
                 cd v8
 
           - name: Determine Should Update
