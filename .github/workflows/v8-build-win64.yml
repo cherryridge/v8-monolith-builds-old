@@ -1,0 +1,48 @@
+﻿name: Build V8 On Windows x64
+description: Build for Windows x64 and Windows ARM64.
+
+on:
+    push:
+        branches:
+          - master
+        paths-ignore:
+          - depot_tools
+          - .gitignore
+          - .gitpod*
+    workflow_dispatch:
+
+jobs:
+    build-win64:
+        name: Build V8 On Windows x64
+        runs-on: windows-latest
+        steps:
+          - name: Checkout Code
+            uses: actions/checkout@v4
+            with:
+                submodules: true
+                clean: true
+                fetch-depth: 1
+          - name: Restore V8 Cache #I don't know why it's here
+            uses: actions/cache@v4
+            with:
+                path: |
+                    v8
+                    .gclient_entries
+                    .gclient_previous_sync_commits
+                    .cipd
+                key: ${{runner.os}}-${{runner.arch}}:libv8:v8:${{hashFiles('**/VERSION')}}
+                restore-keys: |
+                    ${{runner.os}}-${{runner.arch}}:libv8:v8:
+          - name: Build V8
+            continue-on-error: true
+            uses: ./.github/actions/build-windows
+            with:
+                archive-name: v8_windows_x64
+          - name: Upload Archive
+            uses: actions/upload-artifact@v4
+            with:
+                name: v8_windows_x64
+                path: |
+                    *.tar.xz
+                    *.7z
+                retention-days: 7
