@@ -48,11 +48,11 @@ jobs:
 
           - name: Download V8 Source
             shell: cmd
-            run: .\v8_download.bat
+            run: .\native\v8_download.bat
 
           - name: Compile V8
             shell: cmd
-            run: .\v8_compile.bat
+            run: .\native\v8_compile.bat
       
           - name: Show SCCache Status
             shell: pwsh
@@ -63,11 +63,11 @@ jobs:
       
           - name: Test V8
             shell: cmd
-            run: .\v8_test.bat
+            run: .\native\v8_test.bat
         
           - name: Archive V8
             shell: pwsh
-            run: .\archive.bat "v8_windows_x64"
+            run: .\native\archive.bat "v8_windows_x64"
         
           - name: Upload Archive
             uses: actions/upload-artifact@v4
