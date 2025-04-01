@@ -1,0 +1,11 @@
+﻿name: Build on MacOS
+
+on:
+    workflow_call:
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: macos-latest
+        steps:
+          - run: echo 1

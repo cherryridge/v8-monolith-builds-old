@@ -1,0 +1,70 @@
+﻿name: Check V8 Tags
+
+on:
+    schedule:
+        - cron: "0 4 * * *"
+    workflow_dispatch:
+
+jobs:
+    check:
+        runs-on: ubuntu-latest
+        outputs:
+            update: ${{steps.should_update.outputs.update}}
+        steps:
+
+          - name: Checkout This Repo
+            uses: actions/checkout@v4
+            with:
+                ref: main
+
+          - name: Get Last Built Commit
+            id: current_commit
+            uses: juliangruber/read-file-action@v1
+            with:
+                path: ./COMMIT
+
+          - name: Clone V8
+            run:  |
+                git clone https://chromium.googlesource.com/v8/v8.git
+                cd v8
+
+          - name: Determine Should Update
+            id: should_update
+            run: |
+                current_commit = "${{steps.current_commit.outputs.content}}"
+                latest_commit = $(git rev-list --tags --max-count=1)
+                if [ "$current_commit" = "$latest_commit" ]; then
+                    echo "update=true" >> $GITHUB_OUTPUT
+                else
+                    echo "update=false" >> $GITHUB_OUTPUT
+                fi
+
+    build-win64:
+        name: Build on Windows
+        runs-on: windows-latest
+        needs: check
+        if: needs.check.outputs.update == true
+        steps:
+          - name: Invoke Subaction
+            uses: cherryridge/v8-monilith-builds/.github/workflows/build-v8-win64.yml@main
+            continue-on-error: true
+
+    build-linux:
+        name: Build on Linux
+        runs-on: ubuntu-latest
+        needs: check
+        if: needs.check.outputs.update == true
+        steps:
+          - name: Invoke Subaction
+            uses: cherryridge/v8-monilith-builds/.github/workflows/build-v8-linux.yml@main
+            continue-on-error: true
+
+    build-macos:
+        name: Build on macOS
+        runs-on: macos-latest
+        needs: check
+        if: needs.check.outputs.update == true
+        steps:
+          - name: Invoke Subaction
+            uses: cherryridge/v8-monilith-builds/.github/workflows/build-v8-macos.yml@main
+            continue-on-error: true
