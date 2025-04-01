@@ -38,8 +38,10 @@ jobs:
                 echo "Latest commit: $latest_commit"
                 if [ "$current_commit" = "$latest_commit" ]; then
                     echo "update=true" >> $GITHUB_OUTPUT
+                    echo "update"
                 else
                     echo "update=false" >> $GITHUB_OUTPUT
+                    echo "not update"
                 fi
 
     build-win64:
