@@ -31,8 +31,8 @@ jobs:
           - name: Determine Should Update
             id: should_update
             run: |
-                current_commit = "${{steps.current_commit.outputs.content}}"
-                latest_commit = $(git rev-list --tags --max-count=1)
+                current_commit="${{steps.current_commit.outputs.content}}"
+                latest_commit=$(git rev-list --tags --max-count=1)
                 if [ "$current_commit" = "$latest_commit" ]; then
                     echo "update=true" >> $GITHUB_OUTPUT
                 else
