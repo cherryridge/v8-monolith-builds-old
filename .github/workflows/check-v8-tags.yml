@@ -45,46 +45,16 @@ jobs:
                 fi
 
     build-win64:
-        name: Build on Windows
-        runs-on: windows-latest
         needs: check
         if: needs.check.outputs.update == 'true'
-        steps:
-          - name: Checkout This Repo
-            uses: actions/checkout@v4
-            with:
-                ref: main
-
-          - name: Invoke Subaction
-            uses: cherryridge/v8-monolith-builds/.github/workflows/build-v8-win64.yml@main
-            continue-on-error: true
+        uses: cherryridge/v8-monolith-builds/.github/workflows/build-v8-win64.yml@main
 
     build-linux:
-        name: Build on Linux
-        runs-on: ubuntu-latest
         needs: check
         if: needs.check.outputs.update == 'true'
-        steps:
-          - name: Checkout This Repo
-            uses: actions/checkout@v4
-            with:
-                ref: main
-
-          - name: Invoke Subaction
-            uses: cherryridge/v8-monolith-builds/.github/workflows/build-v8-linux.yml@main
-            continue-on-error: true
+        uses: cherryridge/v8-monolith-builds/.github/workflows/build-v8-linux.yml@main
 
     build-macos:
-        name: Build on macOS
-        runs-on: macos-latest
         needs: check
         if: needs.check.outputs.update == 'true'
-        steps:
-          - name: Checkout This Repo
-            uses: actions/checkout@v4
-            with:
-                ref: main
-
-          - name: Invoke Subaction
-            uses: cherryridge/v8-monolith-builds/.github/workflows/build-v8-macos.yml@main
-            continue-on-error: true
+        uses: cherryridge/v8-monolith-builds/.github/workflows/build-v8-macos.yml@main
