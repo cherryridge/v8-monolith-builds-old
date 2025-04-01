@@ -33,6 +33,8 @@ jobs:
             run: |
                 current_commit="${{steps.current_commit.outputs.content}}"
                 latest_commit=$(git rev-list --tags --max-count=1)
+                echo "Current commit: $current_commit"
+                echo "Latest commit: $latest_commit"
                 if [ "$current_commit" = "$latest_commit" ]; then
                     echo "update=true" >> $GITHUB_OUTPUT
                 else
