@@ -46,7 +46,7 @@ jobs:
         if: needs.check.outputs.update == true
         steps:
           - name: Invoke Subaction
-            uses: build-v8-win64.yml@main
+            uses: ./.github/workflows/build-v8-win64.yml@main
             continue-on-error: true
 
     build-linux:
@@ -56,7 +56,7 @@ jobs:
         if: needs.check.outputs.update == true
         steps:
           - name: Invoke Subaction
-            uses: build-v8-linux.yml@main
+            uses: ./.github/workflows/build-v8-linux.yml@main
             continue-on-error: true
 
     build-macos:
@@ -66,5 +66,5 @@ jobs:
         if: needs.check.outputs.update == true
         steps:
           - name: Invoke Subaction
-            uses: build-v8-macos.yml@main
+            uses: ./.github/workflows/build-v8-macos.yml@main
             continue-on-error: true
