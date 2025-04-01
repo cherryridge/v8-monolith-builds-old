@@ -10,6 +10,10 @@ jobs:
         steps:
           - name: Checkout This Repo
             uses: actions/checkout@v4
+            with:
+                submodules: true
+                clean: true
+                fetch-depth: 1
 
           - name: Restore V8 Cache
             uses: actions/cache@v4
