@@ -48,7 +48,7 @@ jobs:
         name: Build on Windows
         runs-on: windows-latest
         needs: check
-        if: needs.check.outputs.update == true
+        if: needs.check.outputs.update == 'true'
         steps:
           - name: Invoke Subaction
             uses: ./.github/workflows/build-v8-win64.yml@main
@@ -58,7 +58,7 @@ jobs:
         name: Build on Linux
         runs-on: ubuntu-latest
         needs: check
-        if: needs.check.outputs.update == true
+        if: needs.check.outputs.update == 'true'
         steps:
           - name: Invoke Subaction
             uses: ./.github/workflows/build-v8-linux.yml@main
@@ -68,7 +68,7 @@ jobs:
         name: Build on macOS
         runs-on: macos-latest
         needs: check
-        if: needs.check.outputs.update == true
+        if: needs.check.outputs.update == 'true'
         steps:
           - name: Invoke Subaction
             uses: ./.github/workflows/build-v8-macos.yml@main
