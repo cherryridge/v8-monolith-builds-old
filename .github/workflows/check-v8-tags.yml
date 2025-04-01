@@ -10,6 +10,7 @@ jobs:
         runs-on: ubuntu-latest
         outputs:
             update: ${{steps.should_update.outputs.update}}
+            latest_commit: ${{steps.should_update.outputs.latest_commit}}
         steps:
 
           - name: Checkout This Repo
@@ -23,31 +24,21 @@ jobs:
             with:
                 path: ./COMMIT
 
-          - name: try to get from github
-            run: |
-                COMMIT_SHA=$(curl -s https://api.github.com/repos/v8/v8/tags | jq -r '.[12].commit.sha')
-                echo "$COMMIT_SHA"
-
-          - name: Clone V8
-            run:  |
-                git clone https://chromium.googlesource.com/v8/v8.git
-                cd v8
-
           - name: Determine Should Update
             id: should_update
             run: |
                 current_commit="${{steps.current_commit.outputs.content}}"
                 current_commit="${current_commit%"${current_commit##*[![:space:]]}"}"
-                latest_commit=$(git rev-list --tags --max-count=1)
-                echo "$(git rev-list --tags --max-count=1)"
+                latest_commit=$(curl -s https://api.github.com/repos/v8/v8/tags | jq -r '.[12].commit.sha')
                 echo "Current commit: $current_commit"
                 echo "Latest commit: $latest_commit"
+                echo "$latest_commit" >> $GITHUB_OUTPUT
                 if [ "$current_commit" = "$latest_commit" ]; then
                     echo "update=false" >> $GITHUB_OUTPUT
-                    echo "not update"
+                    echo "Build skipped."
                 else
                     echo "update=true" >> $GITHUB_OUTPUT
-                    echo "update"
+                    echo "Starting build process."
                 fi
 
     build-win64:
@@ -64,3 +55,28 @@ jobs:
         needs: check
         if: needs.check.outputs.update == 'true'
         uses: cherryridge/v8-monolith-builds/.github/workflows/build-v8-macos.yml@main
+
+    update-commit:
+        runs-on: ubuntu-latest
+        needs: [check, build-linux, build-macos, build-win64]
+        env:
+            LATEST_COMMIT: ${{needs.check.outputs.latest_commit}}
+        steps:
+          - name: Checkout This Repo
+            uses: actions/checkout@v4
+            with:
+                ref: main
+
+          - name: Configure Git
+            run: |
+              git config --global user.name "GitHub Actions"
+              git config --global user.email "[email protected]"
+
+          - name: Update Commit File
+            run: echo "$LATEST_COMMIT" >> ./COMMIT
+
+          - name: Commit Changes
+            run: |
+                git add .
+                git commit -m "Automated: Update COMMIT to $LATEST_COMMIT"
+                git push
