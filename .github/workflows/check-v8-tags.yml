@@ -50,6 +50,11 @@ jobs:
         needs: check
         if: needs.check.outputs.update == 'true'
         steps:
+          - name: Checkout This Repo
+            uses: actions/checkout@v4
+            with:
+                ref: main
+
           - name: Invoke Subaction
             uses: ./.github/workflows/build-v8-win64.yml@main
             continue-on-error: true
@@ -60,6 +65,11 @@ jobs:
         needs: check
         if: needs.check.outputs.update == 'true'
         steps:
+          - name: Checkout This Repo
+            uses: actions/checkout@v4
+            with:
+                ref: main
+
           - name: Invoke Subaction
             uses: ./.github/workflows/build-v8-linux.yml@main
             continue-on-error: true
@@ -70,6 +80,11 @@ jobs:
         needs: check
         if: needs.check.outputs.update == 'true'
         steps:
+          - name: Checkout This Repo
+            uses: actions/checkout@v4
+            with:
+                ref: main
+
           - name: Invoke Subaction
             uses: ./.github/workflows/build-v8-macos.yml@main
             continue-on-error: true
