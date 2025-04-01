@@ -23,6 +23,11 @@ jobs:
             with:
                 path: ./COMMIT
 
+          - name: try to get from github
+            run: |
+                COMMIT_SHA=$(curl -s https://api.github.com/repos/v8/v8/tags | jq -r '.[12].commit.sha')
+                echo "$COMMIT_SHA"
+
           - name: Clone V8
             run:  |
                 git clone https://chromium.googlesource.com/v8/v8.git
