@@ -32,7 +32,7 @@ jobs:
                 latest_commit=$(curl -s https://api.github.com/repos/v8/v8/tags | jq -r '.[12].commit.sha')
                 echo "Current commit: $current_commit"
                 echo "Latest commit: $latest_commit"
-                echo "$latest_commit" >> $GITHUB_OUTPUT
+                echo "latest_commit=$latest_commit" >> $GITHUB_OUTPUT
                 if [ "$current_commit" = "$latest_commit" ]; then
                     echo "update=false" >> $GITHUB_OUTPUT
                     echo "Build skipped."
