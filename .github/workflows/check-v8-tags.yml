@@ -35,6 +35,7 @@ jobs:
                 current_commit="${{steps.current_commit.outputs.content}}"
                 current_commit="${current_commit%"${current_commit##*[![:space:]]}"}"
                 latest_commit=$(git rev-list --tags --max-count=1)
+                echo "$(git rev-list --tags --max-count=1)"
                 echo "Current commit: $current_commit"
                 echo "Latest commit: $latest_commit"
                 if [ "$current_commit" = "$latest_commit" ]; then
