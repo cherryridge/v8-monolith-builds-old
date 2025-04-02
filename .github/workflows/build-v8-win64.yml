@@ -32,7 +32,6 @@ jobs:
             shell: cmd
             run: |
                 set DEPOT_TOOLS_WIN_TOOLCHAIN=0
-                gclient
                 mkdir v8
                 cd v8
                 fetch v8
