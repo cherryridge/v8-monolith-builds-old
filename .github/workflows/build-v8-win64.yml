@@ -70,9 +70,6 @@ jobs:
                 mkdir v8
                 cd v8
                 gclient sync
-                fetch v8
-                gclient sync
-                dir
 
           - name: Build V8 using gm
             shell: cmd
