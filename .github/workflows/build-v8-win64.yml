@@ -58,6 +58,7 @@ jobs:
                 git config branch.autosetupmerge always
                 git config --global core.autocrlf false
                 git config --global core.filemode false
+                git config --global core.longpaths true
                 git config --global core.preloadindex true
                 git config --global core.fscache true
                 git config branch.autosetuprebase always
@@ -72,13 +73,9 @@ jobs:
             shell: cmd
             run: |
                 cd depot_tools
-                dir
                 mkdir v8
                 cd v8
-                cd ..
-                dir
-                cd v8
-                ..\fetch.bat v8
+                fetch v8
 
           - name: test3
             shell: cmd
