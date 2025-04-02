@@ -69,7 +69,7 @@ jobs:
           - name: Setup GM
             shell: pwsh
             run: |
-                python v8\tools\dev\gm.py x64.release
+                python v8\v8\tools\dev\gm.py x64.release
         
           - name: Download V8 Source
             shell: cmd
