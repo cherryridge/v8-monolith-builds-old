@@ -65,6 +65,11 @@ jobs:
                 mkdir v8 && cd v8
                 ..\fetch.bat v8
                 ..\gclient.bat sync
+
+          - name: Setup GM
+            shell: pwsh
+            run: |
+                python v8\tools\dev\gm.py x64.release
         
           - name: Download V8 Source
             shell: cmd
