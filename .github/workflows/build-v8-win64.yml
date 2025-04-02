@@ -64,6 +64,7 @@ jobs:
           - name: test1
             shell: cmd
             run: |
+                dir
                 .\gclient.bat
           - name: test2
             shell: cmd
