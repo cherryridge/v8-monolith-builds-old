@@ -40,6 +40,7 @@ jobs:
           - name: Build V8 Using GM
             shell: cmd
             run: |
+                set DEPOT_TOOLS_WIN_TOOLCHAIN=0
                 cd v8\v8
                 dir
                 python tools\dev\gm.py x64.release
