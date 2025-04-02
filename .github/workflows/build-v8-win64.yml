@@ -76,34 +76,12 @@ jobs:
                 mkdir v8
                 cd v8
                 ..\fetch v8
-                cd v8
-
-          - name: test2
-            shell: cmd
-            run: |
-                cd depot_tools
                 dir
-                gclient config https://chromium.googlesource.com/v8/v8.git
-                gclient sync
 
-          - name: test3
+          - name: Build V8 using gm
             shell: cmd
             run: |
-                cd depot_tools\v8\v8
-                ..\gclient.bat sync
-          - name: Setup GM
-            shell: pwsh
-            run: |
-                ls
-                python depot_tools\v8\v8\tools\dev\gm.py x64.release
-        
-          - name: Download V8 Source
-            shell: cmd
-            run: .\native\v8_download.bat
-
-          - name: Compile V8
-            shell: cmd
-            run: .\native\v8_compile.bat
+                1
       
           - name: Show SCCache Status
             shell: pwsh
