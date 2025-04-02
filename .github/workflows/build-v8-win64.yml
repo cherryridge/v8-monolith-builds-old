@@ -64,23 +64,24 @@ jobs:
           - name: test1
             shell: cmd
             run: |
-                dir
+                cd depot_tools
                 .\gclient.bat
           - name: test2
             shell: cmd
             run: |
+                cd depot_tools
                 mkdir v8 && cd v8
                 ..\fetch.bat v8
           - name: test3
             shell: cmd
             run: |
-                cd v8
+                cd depot_tools\v8\v8
                 ..\gclient.bat sync
           - name: Setup GM
             shell: pwsh
             run: |
                 ls
-                python tools\dev\gm.py x64.release
+                python depot_tools\v8\v8\tools\dev\gm.py x64.release
         
           - name: Download V8 Source
             shell: cmd
