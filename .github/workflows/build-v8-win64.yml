@@ -54,6 +54,10 @@ jobs:
             shell: cmd
             run: |
                 git config branch.autosetupmerge always
+                git config --global core.autocrlf false
+                git config --global core.filemode false
+                git config --global core.preloadindex true
+                git config --global core.fscache true
                 git config branch.autosetuprebase always
                 cd depot_tools
                 .\gclient.bat
