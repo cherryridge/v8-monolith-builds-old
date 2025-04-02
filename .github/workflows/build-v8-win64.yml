@@ -72,6 +72,7 @@ jobs:
             shell: cmd
             run: |
                 dir
+                cd depot_tools
                 mkdir v8 && cd v8
                 2
                 dir
