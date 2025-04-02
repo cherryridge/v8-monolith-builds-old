@@ -66,13 +66,11 @@ jobs:
             run: |
                 cd depot_tools
                 .\gclient.bat
-          - name: test2
-            shell: cmd
-            run: |
-                cd depot_tools
                 mkdir v8 && cd v8
-                dir
-                ..\fetch.bat v8
+          - name: test2
+            run: ..\fetch.bat v8
+            shell: cmd
+            working-directory: .
           - name: test3
             shell: cmd
             run: |
