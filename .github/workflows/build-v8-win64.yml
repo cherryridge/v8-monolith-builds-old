@@ -53,13 +53,14 @@ jobs:
           - name: Checkout V8 Source Code
             shell: cmd
             run: |
+                cd depot_tools
+                git reset --hard
                 git config branch.autosetupmerge always
                 git config --global core.autocrlf false
                 git config --global core.filemode false
                 git config --global core.preloadindex true
                 git config --global core.fscache true
                 git config branch.autosetuprebase always
-                cd depot_tools
                 .\gclient.bat
                 mkdir v8 && cd v8
                 ..\fetch.bat v8
