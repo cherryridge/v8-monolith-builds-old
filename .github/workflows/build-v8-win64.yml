@@ -69,7 +69,8 @@ jobs:
             run: |
                 mkdir v8
                 cd v8
-                ..\fetch v8
+                fetch v8
+                gclient sync
                 dir
 
           - name: Build V8 using gm
