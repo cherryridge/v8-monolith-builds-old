@@ -71,12 +71,12 @@ jobs:
                 cd depot_tools
                 .\gclient.bat config https://chromium.googlesource.com/v8/v8.git
                 .\gclient.bat sync
-                dir
 
           - name: test2
             shell: cmd
             run: |
                 cd depot_tools
+                dir
                 mkdir v8
                 cd v8
                 ..\fetch.bat v8
