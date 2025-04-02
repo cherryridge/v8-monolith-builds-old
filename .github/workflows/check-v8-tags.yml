@@ -8,6 +8,8 @@ on:
 jobs:
     check:
         runs-on: ubuntu-latest
+        permissions:
+            contents: write
         outputs:
             update: ${{steps.should_update.outputs.update}}
             latest_commit: ${{steps.should_update.outputs.latest_commit}}
@@ -41,6 +43,19 @@ jobs:
                     echo "Starting build process."
                 fi
 
+          - name: Update Commit File
+            run: |
+                latest_commit=$(curl -s https://api.github.com/repos/v8/v8/tags | jq -r '.[12].commit.sha')
+                echo "$latest_commit" >> ./COMMIT
+            
+          - name: Commit Changes
+            run: |
+                git config --global user.name "GitHub Actions"
+                git config --global user.email "[email protected]"
+                git add .
+                git commit -m "test commit"
+                git push
+
     build-win64:
         needs: check
         if: needs.check.outputs.update == 'true'
@@ -59,6 +74,8 @@ jobs:
     update-commit:
         runs-on: ubuntu-latest
         needs: [check, build-linux, build-macos, build-win64]
+        permissions:
+            contents: write
         env:
             LATEST_COMMIT: ${{needs.check.outputs.latest_commit}}
         steps:
@@ -69,8 +86,8 @@ jobs:
 
           - name: Configure Git
             run: |
-              git config --global user.name "GitHub Actions"
-              git config --global user.email "[email protected]"
+                git config --global user.name "GitHub Actions"
+                git config --global user.email "[email protected]"
 
           - name: Update Commit File
             run: echo "$LATEST_COMMIT" >> ./COMMIT
