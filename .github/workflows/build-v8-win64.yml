@@ -67,7 +67,7 @@ jobs:
             run: |
                 cd depot_tools
                 dir
-                .\gclient.bat
+                .\gclient.bat sync
                 
           - name: test2
             shell: cmd
