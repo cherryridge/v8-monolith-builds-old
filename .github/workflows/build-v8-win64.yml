@@ -49,9 +49,15 @@ jobs:
         #        New-Item -Path "$sccacheDir" -ItemType Directory -Force
         #        Write-Output "SCCACHE_DIR=$sccacheDir" | Out-File -FilePath "$Env:GITHUB_ENV" -Encoding utf8
           - name: Get Depot Tools
-            shell: pwsh
+            run: git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+
+          - name: Set ENVs & Setup Depot Tools
+            shell: cmd
             run: |
-                git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+                set PATH=D:\a\v8-monolith-builds\v8-monolith-builds\depot_tools;%PATH%
+                setx DEPOT_TOOLS_WIN_TOOLCHAIN "0" /M
+                gclient
+                where python3
 
           - name: Checkout V8 Source Code
             shell: cmd
