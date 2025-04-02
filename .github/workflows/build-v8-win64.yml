@@ -50,6 +50,17 @@ jobs:
                 New-Item -Path "$sccacheDir" -ItemType Directory -Force
                 Write-Output "SCCACHE_DIR=$sccacheDir" | Out-File -FilePath "$Env:GITHUB_ENV" -Encoding utf8
 
+          - name: Checkout V8 Source Code
+            shell: cmd
+            run: |
+                git config branch.autosetupmerge always
+                git config branch.autosetuprebase always
+                cd depot_tools
+                .\gclient.bat
+                mkdir v8 && cd v8
+                ..\fetch.bat v8
+                ..\gclient.bat sync
+        
           - name: Download V8 Source
             shell: cmd
             run: .\native\v8_download.bat
