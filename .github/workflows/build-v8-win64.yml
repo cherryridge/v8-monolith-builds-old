@@ -40,11 +40,7 @@ jobs:
           - name: Build V8 Using GM
             shell: cmd
             run: |
-                dir
-                cd v8
-                dir
-                python ~/v8/v8/tools/dev/gm.py x64.release
-
+                python v8\tools\dev\gm.py x64.release
 
           - name: Archive V8
             shell: pwsh
