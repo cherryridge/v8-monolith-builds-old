@@ -71,10 +71,14 @@ jobs:
           - name: test2
             shell: cmd
             run: |
-                dir
                 cd depot_tools
-                mkdir v8 && cd v8
-                .\depot_tools\fetch.bat v8
+                dir
+                mkdir v8
+                cd v8
+                cd ..
+                dir
+                cd v8
+                ..\fetch.bat v8
 
           - name: test3
             shell: cmd
