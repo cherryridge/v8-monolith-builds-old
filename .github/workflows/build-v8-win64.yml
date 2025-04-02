@@ -71,6 +71,7 @@ jobs:
             run: |
                 cd depot_tools
                 mkdir v8 && cd v8
+                dir
                 ..\fetch.bat v8
           - name: test3
             shell: cmd
