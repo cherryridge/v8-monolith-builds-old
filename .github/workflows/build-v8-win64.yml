@@ -67,6 +67,7 @@ jobs:
           - name: Checkout V8 Source Code
             shell: cmd
             run: |
+                setx DEPOT_TOOLS_WIN_TOOLCHAIN "0" /M
                 mkdir v8
                 cd v8
                 gclient sync
