@@ -65,8 +65,11 @@ jobs:
             shell: cmd
             run: |
                 cd depot_tools
+                dir
                 .\gclient.bat
+                dir
                 mkdir v8 && cd v8
+                dir
           - name: test2
             run: depot_tools\fetch.bat v8
             shell: cmd
