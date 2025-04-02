@@ -71,11 +71,11 @@ jobs:
           - name: Checkout V8 Source Code
             shell: cmd
             run: |
-                gclient
                 cd depot_tools
+                .\gclient
                 mkdir v8
                 cd v8
-                fetch v8
+                ..\fetch v8
                 cd v8
 
           - name: test2
