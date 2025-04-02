@@ -40,6 +40,7 @@ jobs:
           - name: Build V8 Using GM
             shell: cmd
             run: |
+                cd v8
                 dir
                 python v8\tools\dev\gm.py x64.release
 
