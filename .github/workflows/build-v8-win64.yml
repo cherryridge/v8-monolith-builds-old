@@ -77,7 +77,6 @@ jobs:
                 dir
                 depot_tools\fetch.bat v8
 
-            working-directory: depot_tools\v8
           - name: test3
             shell: cmd
             run: |
