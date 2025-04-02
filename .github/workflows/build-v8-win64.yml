@@ -54,7 +54,7 @@ jobs:
           - name: Set ENVs & Setup Depot Tools
             shell: cmd
             run: |
-                set PATH=D:\a\v8-monolith-builds\v8-monolith-builds\depot_tools;%PATH%
+                setx PATH "D:\a\v8-monolith-builds\v8-monolith-builds\depot_tools;%PATH%" /M
                 setx DEPOT_TOOLS_WIN_TOOLCHAIN "0" /M
                 git config branch.autosetupmerge always
                 git config branch.autosetuprebase always
