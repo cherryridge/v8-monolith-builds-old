@@ -42,7 +42,7 @@ jobs:
             run: |
                 cd v8\v8
                 dir
-                python v8\tools\dev\gm.py x64.release
+                python tools\dev\gm.py x64.release
 
           - name: Archive V8
             shell: pwsh
