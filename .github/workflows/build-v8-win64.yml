@@ -61,15 +61,25 @@ jobs:
                 git config --global core.preloadindex true
                 git config --global core.fscache true
                 git config branch.autosetuprebase always
+          - name: test1
+            shell: cmd
+            run: |
                 .\gclient.bat
+          - name: test2
+            shell: cmd
+            run: |
                 mkdir v8 && cd v8
                 ..\fetch.bat v8
+          - name: test3
+            shell: cmd
+            run: |
+                cd v8
                 ..\gclient.bat sync
-
           - name: Setup GM
             shell: pwsh
             run: |
-                python v8\v8\tools\dev\gm.py x64.release
+                ls
+                python tools\dev\gm.py x64.release
         
           - name: Download V8 Source
             shell: cmd
