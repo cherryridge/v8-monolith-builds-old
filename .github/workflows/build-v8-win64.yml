@@ -101,7 +101,7 @@ jobs:
                 7z a v8_win_arm64_debug.7z .\v8\v8\out\arm64.debug\obj\v8_monolith.lib .\v8\v8\include commit.txt
                 7z a v8_win_arm64_release.7z .\v8\v8\out\arm64.release\obj\v8_monolith.lib .\v8\v8\include commit.txt
 
-          - name: Upload Archive Windows x64 Debug
+          - name: Upload Archive
             uses: actions/upload-artifact@v4
             with:
                 name: v8_windows
