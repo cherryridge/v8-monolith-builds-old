@@ -44,21 +44,21 @@ jobs:
     build-win64:
         needs: check
         if: needs.check.outputs.update == 'true'
-        uses: ${{github.repository}}/.github/workflows/build-v8-macos.yml@${{github.ref_name}}
+        uses: ./.github/workflows/build-v8-macos.yml@${{github.ref_name}}
         with:
             commit: ${{needs.check.outputs.latest_commit}}
 
     build-linux:
         needs: check
         if: needs.check.outputs.update == 'true'
-        uses: ${{github.repository}}/.github/workflows/build-v8-macos.yml@${{github.ref_name}}
+        uses: ./.github/workflows/build-v8-macos.yml@${{github.ref_name}}
         with:
             commit: ${{needs.check.outputs.latest_commit}}
 
     build-macos:
         needs: check
         if: needs.check.outputs.update == 'true'
-        uses: ${{github.repository}}/.github/workflows/build-v8-macos.yml@${{github.ref_name}}
+        uses: ./.github/workflows/build-v8-macos.yml@${{github.ref_name}}
         with:
             commit: ${{needs.check.outputs.latest_commit}}
 
