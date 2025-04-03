@@ -27,7 +27,6 @@ jobs:
           - name: Determine Should Update
             id: should_update
             run: |
-                7z a hj.7z COMMIT
                 current_commit="${{steps.current_commit.outputs.content}}"
                 current_commit="${current_commit%"${current_commit##*[![:space:]]}"}"
                 latest_commit=$(curl -s https://api.github.com/repos/v8/v8/tags | jq -r '.[12].commit.sha')
@@ -46,6 +45,8 @@ jobs:
         needs: check
         if: needs.check.outputs.update == 'true'
         uses: cherryridge/v8-monolith-builds/.github/workflows/build-v8-win64.yml@main
+        with:
+            commit: ${{needs.check.outputs.latest_commit}}
 
     build-linux:
         needs: check

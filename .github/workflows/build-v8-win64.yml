@@ -2,7 +2,15 @@
 
 on:
     workflow_call:
+        inputs:
+            commit:
+                type: string
+                required: true
     workflow_dispatch:
+        inputs:
+            commit:
+                type: string
+                required: true
 
 jobs:
     build:
@@ -87,7 +95,7 @@ jobs:
           - name: Compress Product
             shell: pwsh
             run: |
-                $env:ProgramFiles\7-Zip\7z.exe .\v8\v8\out\x64.debug\
+                7z a v8_win_x64_debug.7z .\v8\v8\out\x64.debug\obj\v8_monolith.lib
         
           - name: Upload Archive Windows x64 Debug
             uses: actions/upload-artifact@v4
