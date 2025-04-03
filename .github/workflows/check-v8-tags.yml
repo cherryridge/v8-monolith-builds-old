@@ -88,6 +88,6 @@ jobs:
 
           - name: Commit Changes
             run: |
-                git add .
+                git add COMMIT
                 git commit -m "Automated: Update COMMIT to $LATEST_COMMIT"
                 git push
