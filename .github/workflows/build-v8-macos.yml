@@ -2,7 +2,15 @@
 
 on:
     workflow_call:
+        inputs:
+            commit:
+                type: string
+                required: true
     workflow_dispatch:
+        inputs:
+            commit:
+                type: string
+                required: true
 
 jobs:
     build:

@@ -52,11 +52,15 @@ jobs:
         needs: check
         if: needs.check.outputs.update == 'true'
         uses: cherryridge/v8-monolith-builds/.github/workflows/build-v8-linux.yml@main
+        with:
+            commit: ${{needs.check.outputs.latest_commit}}
 
     build-macos:
         needs: check
         if: needs.check.outputs.update == 'true'
         uses: cherryridge/v8-monolith-builds/.github/workflows/build-v8-macos.yml@main
+        with:
+            commit: ${{needs.check.outputs.latest_commit}}
 
     update-commit:
         runs-on: ubuntu-latest
