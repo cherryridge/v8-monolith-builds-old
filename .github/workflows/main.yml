@@ -1,4 +1,4 @@
-﻿name: Check V8 Tags
+﻿name: Main Task
 
 on:
     schedule:
