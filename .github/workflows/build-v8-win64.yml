@@ -46,7 +46,7 @@ jobs:
                 gclient sync
 
           - name: Build V8 Windows x64 Debug
-            shell: cmd
+            shell: pwsh
             run: |
                 set DEPOT_TOOLS_WIN_TOOLCHAIN=0
                 cd v8\v8
@@ -54,7 +54,7 @@ jobs:
                 ninja -C out/x64.debug v8_monolith v8_hello_world
 
           - name: Build V8 Windows x64 Release
-            shell: cmd
+            shell: pwsh
             run: |
                 set DEPOT_TOOLS_WIN_TOOLCHAIN=0
                 cd v8\v8
@@ -62,7 +62,7 @@ jobs:
                 ninja -C out/x64.release v8_monolith v8_hello_world
 
           - name: Build V8 Windows arm64 Debug
-            shell: cmd
+            shell: pwsh
             run: |
                 set DEPOT_TOOLS_WIN_TOOLCHAIN=0
                 cd v8\v8
@@ -70,7 +70,7 @@ jobs:
                 ninja -C out/arm64.debug v8_monolith v8_hello_world
 
           - name: Build V8 Windows arm64 Release
-            shell: cmd
+            shell: pwsh
             run: |
                 set DEPOT_TOOLS_WIN_TOOLCHAIN=0
                 cd v8\v8
