@@ -45,7 +45,7 @@ jobs:
                 fetch v8
                 gclient sync
 
-          - name: Build V8 Windows x64 Debug
+          - name: Build x64 Debug
             shell: pwsh
             run: |
                 $env:DEPOT_TOOLS_WIN_TOOLCHAIN = '0'
@@ -53,7 +53,7 @@ jobs:
                 gn gen out/x64.debug --args='v8_target_cpu=\"x64\" target_cpu=\"x64\" is_debug=true symbol_level=2 is_component_build=false v8_static_library=true v8_enable_pointer_compression=true v8_monolithic=true v8_use_external_startup_data=false v8_enable_sandbox=true v8_enable_webassembly=true treat_warnings_as_errors=false enable_iterator_debugging=true v8_enable_verify_heap=true v8_enable_object_print=true'
                 ninja -C out/x64.debug v8_monolith v8_hello_world
 
-          - name: Build V8 Windows x64 Release
+          - name: Build x64 Release
             shell: pwsh
             run: |
                 $env:DEPOT_TOOLS_WIN_TOOLCHAIN = '0'
@@ -123,7 +123,7 @@ jobs:
                 fetch v8
                 gclient sync
 
-          - name: Build V8 Windows arm64 Debug
+          - name: Build arm64 Debug
             shell: pwsh
             run: |
                 $env:DEPOT_TOOLS_WIN_TOOLCHAIN = '0'
@@ -131,7 +131,7 @@ jobs:
                 gn gen out/arm64.debug --args='v8_target_cpu=\"arm64\" target_cpu=\"arm64\" is_debug=true symbol_level=2 is_component_build=false v8_static_library=true v8_enable_pointer_compression=true v8_monolithic=true v8_use_external_startup_data=false v8_enable_sandbox=true v8_enable_webassembly=true treat_warnings_as_errors=false enable_iterator_debugging=true v8_enable_verify_heap=true v8_enable_object_print=true'
                 ninja -C out/arm64.debug v8_monolith v8_hello_world
 
-          - name: Build V8 Windows arm64 Release
+          - name: Build arm64 Release
             shell: pwsh
             run: |
                 $env:DEPOT_TOOLS_WIN_TOOLCHAIN = '0'

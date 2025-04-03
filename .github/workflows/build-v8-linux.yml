@@ -13,7 +13,47 @@ on:
                 required: true
 
 jobs:
-    build:
+    build-linux-x64:
         runs-on: ubuntu-latest
         steps:
-          - run: echo 1
+          - name: Checkout This Repo
+            uses: actions/checkout@v4
+            with:
+                clean: true
+                fetch-depth: 1
+
+          - name: Set Git Configs
+            run: |
+                git config branch.autosetupmerge always
+                git config branch.autosetuprebase always
+                git config --global core.autocrlf false
+                git config --global core.filemode false
+                git config --global core.longpaths true
+                git config --global core.preloadindex true
+                git config --global core.fscache true
+
+          - name: Check Depot Tools
+            uses: newkdev/setup-depot-tools@v1.0.1
+
+          - name: Checkout V8 Source Code
+            run: |
+                mkdir v8
+                cd v8
+                fetch v8
+                gclient sync
+
+          - name: Build V8 Linux x64 Debug
+            run: |
+                cd v8/v8
+                gn gen out/x64.debug --args='v8_target_cpu=\"x64\" target_cpu=\"x64\" is_debug=true symbol_level=2 is_component_build=false v8_static_library=true v8_enable_pointer_compression=true v8_monolithic=true v8_use_external_startup_data=false v8_enable_sandbox=true v8_enable_webassembly=true treat_warnings_as_errors=false enable_iterator_debugging=true v8_enable_verify_heap=true v8_enable_object_print=true'
+                ninja -C out/x64.debug v8_monolith v8_hello_world
+
+          - name: Build V8 Linux x64 Release
+            run: |
+                cd v8/v8
+                gn gen out/x64.release --args='v8_target_cpu=\"x64\" target_cpu=\"x64\" is_debug=false symbol_level=0 is_component_build=false v8_static_library=true v8_enable_pointer_compression=true v8_monolithic=true v8_use_external_startup_data=false v8_enable_sandbox=true v8_enable_webassembly=true treat_warnings_as_errors=false enable_iterator_debugging=false v8_enable_verify_heap=\"\" v8_enable_object_print=\"\"'
+                ninja -C out/x64.release v8_monolith v8_hello_world
+
+          - name: Test Product
+            run: |
+                
