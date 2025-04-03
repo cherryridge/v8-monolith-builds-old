@@ -41,17 +41,17 @@ jobs:
                     echo "Starting build process."
                 fi
 
-    build-win64:
+    build-windows:
         needs: check
         if: needs.check.outputs.update == 'true'
-        uses: ./.github/workflows/build-v8-macos.yml
+        uses: ./.github/workflows/build-v8-windows.yml
         with:
             commit: ${{needs.check.outputs.latest_commit}}
 
     build-linux:
         needs: check
         if: needs.check.outputs.update == 'true'
-        uses: ./.github/workflows/build-v8-macos.yml
+        uses: ./.github/workflows/build-v8-linux.yml
         with:
             commit: ${{needs.check.outputs.latest_commit}}
 
@@ -64,7 +64,7 @@ jobs:
 
     update-commit:
         runs-on: ubuntu-latest
-        needs: [check, build-linux, build-macos, build-win64]
+        needs: [check, build-linux, build-macos, build-windows]
         permissions:
             contents: write
         env:
